@@ -1,5 +1,6 @@
 package com.api.test;
 
+import static com.api.utils.ConfigManager.*;
 import static io.restassured.RestAssured.*;
 
 import static org.hamcrest.Matchers.*;
@@ -9,7 +10,6 @@ import java.io.IOException;
 import org.testng.annotations.Test;
 
 import com.api.pojo.UserCredentials;
-import static com.api.util.ConfigManager.*;
 
 import io.restassured.http.ContentType;
 import io.restassured.module.jsv.JsonSchemaValidator;

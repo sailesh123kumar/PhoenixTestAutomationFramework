@@ -1,15 +1,15 @@
-package com.api.util;
+package com.api.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ConfigManager2 {
+public class ConfigManager {
 	private static String path = "config/config.properties";
 	private static Properties prop = new Properties();
 	private static String env;
 
-	private ConfigManager2() {
+	private ConfigManager() {
 	}
 
 	/**
@@ -23,24 +23,13 @@ public class ConfigManager2 {
 
 		switch (env.toLowerCase().trim()) {
 
-		case "dev": {
-			path = "config/config.dev.properties";
-			break;
-		}
+		case "dev" -> path = "config/config.dev.properties";
 
-		case "qa": {
-			path = "config/config.qa.properties";
-			break;
-		}
+		case "qa" -> path = "config/config.qa.properties";
 
-		case "uat": {
-			path = "config/config.uat.properties";
-			break;
-		}
+		case "uat" -> path = "config/config.uat.properties";
 
-		default: {
-			path = "config/config.qa.properties";
-		}
+		default -> path = "config/config.qa.properties";
 		}
 
 		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
