@@ -21,8 +21,8 @@ on:
         suiteXmlFile:
           description: "TestNG Xml File"
           type: choice
-          options: [testng.xml.smoke.xml]
-          default: testng,xml
+          options: [testng.xml,smoke.xml]
+          default: testng.xml
           required: true
 
 jobs:
