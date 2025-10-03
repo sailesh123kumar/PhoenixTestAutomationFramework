@@ -1,14 +1,19 @@
 package com.api.test;
 
-import static org.hamcrest.Matchers.*;
+import static com.api.constants.Role.FD;
+import static com.api.utils.SpecUtil.request_Spec;
+import static com.api.utils.SpecUtil.request_SpecWithAuth;
+import static com.api.utils.SpecUtil.response_Spec_OK;
+import static com.api.utils.SpecUtil.response_Spec_With_Text_StatusCode;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.Matchers.notNullValue;
+
 import org.testng.annotations.Test;
-
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
-import static com.api.constants.Role.*;
-import static com.api.utils.AuthTokenProvider.*;
-import static com.api.utils.ConfigManager.*;
-
-import static io.restassured.RestAssured.*;
 
 public class MasterAPITest {
 	
@@ -18,19 +23,11 @@ public class MasterAPITest {
 		//API Developed Incorrectly hen we are not passing any body , It supposed to be get request
 		
 		given()
-			.baseUri(getProperty("BASE_URI"))
-			.and()
-			.header("Authorization",getToken(FD))
-			.contentType("")  //default content-type application/url-form-encoded
-			.log().uri()
-			.log().method()
-			.log().headers()
+			.spec(request_SpecWithAuth(FD))
 		.when()
 			.post("master")
 		.then()
-			.log().all()
-			.statusCode(200)
-			.time(lessThan(1500l))
+			.spec(response_Spec_OK())
 			.body("$", hasKey("message"))
 			.body("$", hasKey("data"))
 			.body("message", equalTo("Success"))
@@ -50,17 +47,11 @@ public class MasterAPITest {
 	public void invalidTokenMasterAPITest() {
 		
 		given()
-		.baseUri(getProperty("BASE_URI"))
-		.and()
-		.contentType("")  //default content-type application/url-form-encoded
-		.log().uri()
-		.log().method()
-		.log().headers()
+		.spec(request_Spec())
 	.when()
 		.post("master")
 	.then()
-		.log().all()
-		.statusCode(401);
+		.spec(response_Spec_With_Text_StatusCode(401));
 		
 		
 	}
