@@ -1,0 +1,42 @@
+[33mcommit 7ddeafadda87ec83c2883615fca224184fd82a61[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: sailesh123kumar <saileshkumar17893@gmail.com>
+Date:   Tue Sep 30 21:26:54 2025 +0530
+
+    Requirement 4 :
+    
+    testng.xml file created and added maven surefire plugin to pass the
+    suiteXmlFile parameter
+
+[33mcommit dea4c1b76241e59e42a1fba1932da345fd22d3bf[m
+Author: sailesh123kumar <saileshkumar17893@gmail.com>
+Date:   Mon Sep 29 10:31:57 2025 +0530
+
+    Requirement 3 : CountAPI and MasterAPI Test
+    
+    Role : Hold all the user for Roles of Phoenix application
+    
+    UserDetailAPITest : Functional API Test Checks the status code ,response
+    time and schema. Also does the negative test for token
+    
+    CountAPITest : Functional API Test Checks the status code , response
+    time and schema. Also does the negative test for token
+    
+    MasterAPITest : Functional API Test Checks the status code , response
+    time and schema. Also does the negative test for token
+
+[33mcommit 9205b8add1fc4a0837143483988c6d1fdf5b7074[m
+Author: sailesh123kumar <saileshkumar17893@gmail.com>
+Date:   Sun Sep 28 17:39:50 2025 +0530
+
+    Created Config Manager Class for Managing the multiple environments
+    (dev,qa,uat) for the projects
+    
+    Updated pom.xml file -
+    maven.compiler.source - 14
+    maven.compiler.target - 14
+
+[33mcommit 3c7a2d68c66914971036f0e9c90c815e95f9985b[m
+Author: sailesh123kumar <saileshkumar17893@gmail.com>
+Date:   Sun Sep 28 00:01:54 2025 +0530
+
+    Base Code for automation framework

@@ -1,29 +1,33 @@
 package com.api.test;
 
-import static com.api.constants.Role.*;
-import static com.api.utils.AuthTokenProvider.*;
-import static com.api.utils.ConfigManager.*;
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
+import static com.api.constants.Role.FD;
+import static com.api.utils.SpecUtil.request_Spec;
+import static com.api.utils.SpecUtil.request_SpecWithAuth;
+import static com.api.utils.SpecUtil.response_Spec_OK;
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.blankOrNullString;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+
 import org.testng.annotations.Test;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
+import static com.api.utils.SpecUtil.*;
 
 public class CountAPITest {
 	
 	@Test
 	public void verifyCountAPIPositiveTest(){
 		given()
-			.baseUri(getProperty("BASE_URI"))
-			.header("Authorization",getToken(FD))
-			.log().uri()
-			.log().method()
+			.spec(request_SpecWithAuth(FD))
 		.when()
 			.get("dashboard/count")
 		.then()
-			.log().all()
-			.statusCode(200)
-			.time(lessThan(1500l))
+			.spec(response_Spec_OK())
 			.body("data", notNullValue())
 			.body("data.size()", equalTo(3))
 			.body("data.count", everyItem(greaterThanOrEqualTo(0)))
@@ -38,15 +42,11 @@ public class CountAPITest {
 	public void verifyMissingAuth_CountAPITest() {
 		
 		given()
-		.baseUri(getProperty("BASE_URI"))
-		.log().uri()
-		.log().method()
-		.log().method()
+		.spec(request_Spec())
 	.when()
 		.get("dashboard/count")
 	.then()
-		.log().all()
-		.statusCode(401);
+		.spec(response_Spec_With_Text_StatusCode(401));
 		
 	}
 
