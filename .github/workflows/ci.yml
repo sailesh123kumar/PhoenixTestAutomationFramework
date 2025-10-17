@@ -7,8 +7,6 @@ on:
     branches: [ "master" ]
   schedule: # Set the CRON for MIDNIGHT IST ---- UTC
     - cron: "30 18 * * *"
-    - cron: "30 17 * * *"
-    - cron: "30 16 * * *"
     
   workflow_dispatch: 
     inputs:
