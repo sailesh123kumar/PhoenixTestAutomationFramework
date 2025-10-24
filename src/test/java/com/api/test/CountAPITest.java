@@ -20,7 +20,7 @@ import static com.api.utils.SpecUtil.*;
 
 public class CountAPITest {
 	
-	@Test
+	@Test(description = "Verify Count Api is giving correct response", groups = {"smoke" , "regression"})
 	public void verifyCountAPIPositiveTest(){
 		given()
 			.spec(request_SpecWithAuth(FD))
@@ -38,7 +38,7 @@ public class CountAPITest {
 	}
 	
 	
-	@Test
+	@Test(description = "Verify Count Api is giving correct status code for invalid token", groups = {"smoke" , "negative" , "regression"})
 	public void verifyMissingAuth_CountAPITest() {
 		
 		given()

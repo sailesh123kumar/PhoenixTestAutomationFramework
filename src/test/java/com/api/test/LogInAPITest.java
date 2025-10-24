@@ -3,21 +3,27 @@ package com.api.test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.request.model.UserCredentials;
 
 import static com.api.utils.SpecUtil.*;
 
-import io.restassured.module.jsv.JsonSchemaValidator;
+import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 public class LogInAPITest {
 	
-	@Test
+	private UserCredentials userCredentials;
+	
+	@BeforeMethod(description = "create request payload for login api")
+	public void setUp() {
+		userCredentials = new UserCredentials("iamfd","password");
+	}
+	
+	@Test(description = "Verify user is able to login successfully with the valid credentials" , groups = {"smoke","reression","api"})
 	public void loginAPITest() {
 		
-		UserCredentials userCredentials = new UserCredentials("iamfd","password");
-
 		given()
 			.spec(request_Spec(userCredentials))
 		.when()
@@ -26,7 +32,7 @@ public class LogInAPITest {
 			.spec(response_Spec_OK())
 			.body("message", equalTo("Success"))
 			.and()
-			.body(JsonSchemaValidator.matchesJsonSchemaInClasspath("response-schema/LoginResponseSchema.json"));
+			.body(matchesJsonSchemaInClasspath("response-schema/LoginResponseSchema.json"));
 	
 	}
 

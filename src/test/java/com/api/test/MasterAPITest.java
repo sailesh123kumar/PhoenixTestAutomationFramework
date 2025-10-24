@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 
 public class MasterAPITest {
 	
-	@Test
+	@Test(description = "Verify Master Api is giving correct response", groups = {"smoke" , "regression"})
 	public void verifyMasterAPITest() {
 		
 		//API Developed Incorrectly hen we are not passing any body , It supposed to be get request
@@ -43,7 +43,7 @@ public class MasterAPITest {
 	}
 	
 	
-	@Test
+	@Test(description = "Verify Master Api is giving correct status code for invalid token", groups = {"smoke" , "negative" , "regression"})
 	public void invalidTokenMasterAPITest() {
 		
 		given()

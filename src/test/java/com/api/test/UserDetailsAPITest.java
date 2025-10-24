@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 public class UserDetailsAPITest {
 
-	@Test
+	@Test(description = "Verify if userdetails api response show correctly" , groups = {"smoke","reression","api"})
 	public void userDetailsAPITest() {
 		given()
 			.spec(request_SpecWithAuth(FD))
