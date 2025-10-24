@@ -7,7 +7,13 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import com.api.constants.Model;
+import com.api.constants.OEM;
+import com.api.constants.Platform;
+import com.api.constants.Product;
 import com.api.constants.Role;
+import com.api.constants.ServiceLocation;
+import com.api.constants.Warranty_Status;
 import com.api.request.model.CreateJobPayLoad;
 import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
@@ -27,17 +33,17 @@ import static io.restassured.RestAssured.*;
 public class CreateJobAPITest {
 	
 	@Test
-	public void createjobAPITest() {
+	public void createJobAPITest() {
 		
 		Customer customer = new Customer("Sailesh", "Kumar", "7823967575", "", "saileshkumar1793@gmail.com", "");
 		CustomerAddress customerAddress = new CustomerAddress("D 404", "Rajiv Nagar", "Vignesh Salai", "Velachery", "Chennai", "600042", "India", "Tamil Nadu");
-		CustomerProduct customerProduct = new CustomerProduct(getTimeWithDaysAgo(10), "11256049233069", "11256049233069", "11056049233069", getTimeWithDaysAgo(10), 1, 1);
+		CustomerProduct customerProduct = new CustomerProduct(getTimeWithDaysAgo(10), "81256049233069", "81256049233069", "81256049233069", getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
 		Problems problems = new Problems(1, "battery Issue");
 
 		List<Problems> problemsList= new ArrayList<Problems>();
 		problemsList.add(problems);
 		
-		CreateJobPayLoad payLoad = new CreateJobPayLoad(0, 2, 1, 1, customer, customerAddress, customerProduct, problemsList);
+		CreateJobPayLoad payLoad = new CreateJobPayLoad(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemsList);
 
 		given()
 			.baseUri(ConfigManager.getProperty("BASE_URI"))
@@ -57,11 +63,11 @@ public class CreateJobAPITest {
 	}
 	
 	@Test
-	public void createjobAPIOneTest() {
+	public void createJobAPIOneTest() {
 		
 		Customer customer = new Customer("Sailesh", "Kumar", "7823967575", "", "saileshkumar1793@gmail.com", "");
 		CustomerAddress customerAddress = new CustomerAddress("D 404", "Rajiv Nagar", "Vignesh Salai", "Velachery", "Chennai", "600042", "India", "Tamil Nadu");
-		CustomerProduct customerProduct = new CustomerProduct(getTimeWithDaysAgo(10), "11556049233069", "11556049233069", "11556049233069", getTimeWithDaysAgo(10), 1, 1);
+		CustomerProduct customerProduct = new CustomerProduct(getTimeWithDaysAgo(10), "11556049233069", "11556049233069", "11556049233069", getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
 		Problems problems = new Problems(1, "battery Issue");
 		List<Problems> problemsList= new ArrayList<Problems>();
 		problemsList.add(problems);
