@@ -14,7 +14,7 @@ import com.api.constants.Product;
 import static com.api.constants.Role.*;
 import com.api.constants.ServiceLocation;
 import com.api.constants.Warranty_Status;
-import com.api.request.model.CreateJobPayLoad;
+import com.api.request.model.CreateJobPayload;
 import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
@@ -32,7 +32,7 @@ import static io.restassured.RestAssured.*;
 
 public class CreateJobAPITest {
 	
-	CreateJobPayLoad payLoad ;
+	CreateJobPayload payLoad ;
 	
 	public void setUp() {
 		Customer customer = new Customer("Sailesh", "Kumar", "7823967575", "", "saileshkumar1793@gmail.com", "");
@@ -43,7 +43,7 @@ public class CreateJobAPITest {
 		List<Problems> problemsList= new ArrayList<Problems>();
 		problemsList.add(problems);
 		
-		payLoad = new CreateJobPayLoad(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemsList);
+		payLoad = new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemsList);
 	}
 	
 	@Test(description = "Verify Create job Api is able to create Inwarranty job", groups = {"smoke" , "regression"})
@@ -77,7 +77,7 @@ public class CreateJobAPITest {
 		List<Problems> problemsList= new ArrayList<Problems>();
 		problemsList.add(problems);
 		
-		CreateJobPayLoad payLoad = new CreateJobPayLoad(0, 2, 1, 1, customer, customerAddress, customerProduct, problemsList);
+		CreateJobPayload payLoad = new CreateJobPayload(0, 2, 1, 1, customer, customerAddress, customerProduct, problemsList);
 
 		given()
 			.spec(request_SpecWithAuth(FD,payLoad))
