@@ -32,7 +32,7 @@ import static io.restassured.RestAssured.*;
 
 public class CreateJobAPIFakerDataDrivenTest {
 	
-	@Test(description = "Verify Create job Api is able to create Inwarranty job", groups = {"datadriven" , "regression"} ,
+	@Test(description = "Verify Create job Api is able to create Inwarranty job", groups = {"datadriven" , "regression" , "faker"} ,
 			dataProviderClass = com.dataproviders.DataProvidersUtils.class ,dataProvider = "createJobAPIFakerDataProvider")
 	public void createJobAPITest(CreateJobPayload payLoad) {
 		
