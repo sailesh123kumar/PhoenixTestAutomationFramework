@@ -30,10 +30,10 @@ import static io.restassured.module.jsv.JsonSchemaValidator.*;
 import static io.restassured.RestAssured.*;
 
 
-public class CreateJobAPIDataDrivenTest {
+public class CreateJobAPIFakerDataDrivenTest {
 	
-	@Test(description = "Verify Create job Api is able to create Inwarranty job", groups = {"datadriven" , "regression", "api" , "csv"} ,
-			dataProviderClass = com.dataproviders.DataProvidersUtils.class ,dataProvider = "CreateJobAPIDataProvider")
+	@Test(description = "Verify Create job Api is able to create Inwarranty job", groups = {"datadriven" , "regression" , "faker"} ,
+			dataProviderClass = com.dataproviders.DataProvidersUtils.class ,dataProvider = "createJobAPIFakerDataProvider")
 	public void createJobAPITest(CreateJobPayload payLoad) {
 		
 		

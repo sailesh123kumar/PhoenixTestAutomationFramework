@@ -13,7 +13,7 @@ public record UserCredentials(String username, String password)
 	
 	static {
 		int x=10;
-		System.out.println("static block");
+		//System.out.println("static block");
 	}
 	
 	public UserCredentials() {
