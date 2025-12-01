@@ -8,6 +8,7 @@
 			<class name="com.api.test.datadriven.LogInAPIDataDrivenTest" />
 			<class name="com.api.test.datadriven.CreateJobAPIDataDrivenTest" />
 			<class name="com.api.test.datadriven.CreateJobAPIFakerDataDrivenTest" />
+			<class name="com.api.test.datadriven.LogInAPIJSONDataDrivenTest" />
 		</classes>
 	</test>
 	
