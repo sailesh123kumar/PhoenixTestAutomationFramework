@@ -18,9 +18,9 @@ import com.poiji.bind.Poiji;
 
 public class ExcelReaderUtil2 {
 
-	public static <T> Iterator<T> loadTestData(String sheetName , Class<T> clazz) {
+	public static <T> Iterator<T> loadTestData(String fileName , String sheetName , Class<T> clazz) {
 		InputStream is = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream("testData/PhoenixTestData.xlsx");
+				.getResourceAsStream(fileName);
 
 		XSSFWorkbook workBook = null;
 		
@@ -31,7 +31,7 @@ public class ExcelReaderUtil2 {
 		}
 		
 		XSSFSheet sheet;
-		sheet = workBook.getSheet("LoginTestData");
+		sheet = workBook.getSheet(sheetName);
 		
 		List<T> list = Poiji.fromExcel(sheet, clazz);
 		return list.iterator();
