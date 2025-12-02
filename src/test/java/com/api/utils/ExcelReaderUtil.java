@@ -25,17 +25,13 @@ public class ExcelReaderUtil {
 		System.out.println(lastRowNum);
 		System.out.println(lastColumnNum);
 		
-		
 		for(int row = 0 ; row <= lastRowNum ; row++) {
 			for(int col = 0 ; col <= lastColumnNum - 1 ; col++) {
-				
 				 myRow = sheet.getRow(row);
 				 myCell = myRow.getCell(col);
 				 System.out.print(myCell.getStringCellValue() + " | ");
 			}
-			
 			System.out.println("");
-			
 		}
 		
 	}
