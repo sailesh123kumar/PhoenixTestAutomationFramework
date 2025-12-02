@@ -10,7 +10,10 @@
 			<class name="com.api.test.datadriven.CreateJobAPIFakerDataDrivenTest" />
 			<class name="com.api.test.datadriven.LogInAPIJSONDataDrivenTest" />
 			<class name="com.api.test.datadriven.CreateJobAPIJSONDataDrivenTest" />
+			<class name="com.api.test.datadriven.LogInAPIExcelDataDrivenTest" />
+			<class name="com.api.test.datadriven.CreateJobAPIExcelDataDrivenTest" />
 		</classes>
+		
 	</test>
 	
 	
