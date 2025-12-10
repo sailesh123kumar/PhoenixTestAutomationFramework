@@ -14,8 +14,6 @@ public class DemoRunner2 {
 		for (int i = 1; i <= 1200; i++) {
 			DatabaseManager.getConnection();
 			DatabaseManager.getConnection();
-			DatabaseManager.getConnection();
-			DatabaseManager.getConnection();
 		}
 
 		long endTime = System.currentTimeMillis();
