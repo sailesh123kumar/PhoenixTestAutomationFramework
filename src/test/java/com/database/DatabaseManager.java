@@ -26,7 +26,6 @@ public class DatabaseManager {
 
 	private static HikariConfig hikariConfig;
 	private static volatile HikariDataSource hikariDataSource;
-
 	// All threads will be aware of it
 
 	private DatabaseManager() {
@@ -54,7 +53,6 @@ public class DatabaseManager {
 			}
 
 		}
-
 	}
 
 	public static Connection getConnection() {
@@ -65,6 +63,7 @@ public class DatabaseManager {
 			} else if (hikariDataSource.isClosed()) {
 				throw new SQLException("HIKARI DATA SOURCE IS CLOSED");
 			}
+
 			connection = hikariDataSource.getConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
