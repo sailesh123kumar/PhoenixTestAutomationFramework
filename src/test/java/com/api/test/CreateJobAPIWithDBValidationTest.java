@@ -15,20 +15,15 @@ import org.testng.annotations.Test;
 import com.api.request.model.CreateJobPayload;
 import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
-import com.api.request.model.CustomerProduct;
-import com.api.response.model.CreateJobResponseModel;
 import com.api.utils.FakerDataGenerator;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
-import com.database.dao.CustomerProductDao;
 import com.database.model.CustomerAddressDBModel;
 import com.database.model.CustomerDBModel;
-import com.database.model.CustomerProductDBModel;
 
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 
-public class CreateJobAPIWithDBValidationOnAPIResponseFakeDataTest {
+public class CreateJobAPIWithDBValidationTest {
 	private CreateJobPayload createJobPayload;
 
 	@BeforeMethod
@@ -40,7 +35,7 @@ public class CreateJobAPIWithDBValidationOnAPIResponseFakeDataTest {
 			"regression" })
 	public void createJobAPITest() {
 
-		 CreateJobResponseModel createJobResponseModel = given().baseUri(getProperty("BASE_URI"))
+		int customerId = given().baseUri(getProperty("BASE_URI"))
 				.header("Authorization", getToken(FD))
 				.contentType(ContentType.JSON)
 				.body(createJobPayload).log().all()
@@ -52,14 +47,9 @@ public class CreateJobAPIWithDBValidationOnAPIResponseFakeDataTest {
 				.body("message", equalTo("Job created successfully. "))
 				.body("data.mst_service_location_id", equalTo(1))
 				.body("data.job_number", startsWith("JOB_"))
-				.extract().as(CreateJobResponseModel.class);
-		 
-		 System.out.println(createJobResponseModel);
-		 
-		 
-		 		int customerId = createJobResponseModel.getData().getTr_customer_id();;
-		 		System.out.println("=============================================");
-				System.out.println("CUSTOMER ID : "+customerId);
+				.extract().body().jsonPath().getInt("data.tr_customer_id");
+		
+				System.out.println("Cutomer ID : "+customerId);
 		
 				Customer expectedCustomerData = createJobPayload.customer();
 				CustomerDBModel actualCustomerData = CustomerDao.getCustomerInfo(customerId);
@@ -72,7 +62,7 @@ public class CreateJobAPIWithDBValidationOnAPIResponseFakeDataTest {
 				Assert.assertEquals(actualCustomerData.getEmail_id_alt(), expectedCustomerData.email_id_alt());
 				
 				int tr_customer_address_id = actualCustomerData.getTr_customer_address_id();
-				System.out.println("CUSTOMER ADDRESS ID : " +tr_customer_address_id);
+				System.out.println("Customer Address ID : " +tr_customer_address_id);
 				
 				CustomerAddress customerAddress = createJobPayload.customer_address();
 				CustomerAddressDBModel customerAddressDBdata = CustomerAddressDao.getCustomerAddress(tr_customer_address_id);
@@ -86,17 +76,6 @@ public class CreateJobAPIWithDBValidationOnAPIResponseFakeDataTest {
 				Assert.assertEquals(customerAddressDBdata.getCountry(), customerAddress.country());
 				Assert.assertEquals(customerAddressDBdata.getState(), customerAddress.state());
 				
-				int tr_customer_product_id = createJobResponseModel.getData().getTr_customer_product_id();
-				System.out.println("CUSTOMER PRODUCT ID : "+ tr_customer_product_id);
-				
-				CustomerProduct customer_product = createJobPayload.customer_product();
-				CustomerProductDBModel customerProductFromDB = CustomerProductDao.getCustomerProductFromDB(tr_customer_product_id);
-				Assert.assertTrue(customer_product.dop().contains(customerProductFromDB.getDop()));
-				Assert.assertEquals(customerProductFromDB.getImei1(), customer_product.imei1());
-				Assert.assertEquals(customerProductFromDB.getImei2(), customer_product.imei2());
-				Assert.assertEquals(customerProductFromDB.getSerial_number(), customer_product.serial_number());
-				Assert.assertEquals(customerProductFromDB.getPopurl(), customer_product.popurl());
-				Assert.assertEquals(customerProductFromDB.getMst_model_id(), customer_product.mst_model_id());
 	}
 
 	@Test(description = "Verify Create job Api is able to create Inwarranty job", groups = { "api", "smoke",

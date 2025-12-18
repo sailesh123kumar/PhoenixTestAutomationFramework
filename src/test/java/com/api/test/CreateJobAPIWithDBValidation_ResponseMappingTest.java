@@ -27,7 +27,7 @@ import com.database.model.CustomerProductDBModel;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-public class CreateJobAPIWithDBValidationFakeDataTest {
+public class CreateJobAPIWithDBValidation_ResponseMappingTest {
 	private CreateJobPayload createJobPayload;
 
 	@BeforeMethod

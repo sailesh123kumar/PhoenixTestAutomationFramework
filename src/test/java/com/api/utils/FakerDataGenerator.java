@@ -42,8 +42,6 @@ public class FakerDataGenerator {
 
 		CreateJobPayload createJobPayload = new CreateJobPayload(MST_SERVICE_LOCATION_ID, MST_PLATFORM_ID,
 				MST_WARRANTY_STATUS_ID, MST_OEM_ID, customer, customerAddress, customerProduct, problemsList);
-		System.out.println(createJobPayload);
-
 		return createJobPayload;
 	}
 
