@@ -11,9 +11,7 @@ import com.database.model.MapJobProblemDBModel;
 public class MapJobProblemDao {
 
 	private static final String MAP_JOB_PROBLEM_QUERY = """
-
 			select * from map_job_problem  where tr_job_head_id  = ?
-
 			""";
 
 	private MapJobProblemDao() {
