@@ -6,14 +6,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.api.utils.ConfigManager;
+import com.api.utils.EnvUtil;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 public class DatabaseManager {
 
-	private static final String DB_URL = ConfigManager.getProperty("DB_URL");
-	private static final String DB_USERNAME = ConfigManager.getProperty("DB_USER_NAME");
-	private static final String DB_PASSWORD = ConfigManager.getProperty("DB_PASSWORD");
+	private static final String DB_URL = EnvUtil.getValue("DB_URL");
+	private static final String DB_USERNAME = EnvUtil.getValue("DB_USER_NAME");
+	private static final String DB_PASSWORD = EnvUtil.getValue("DB_PASSWORD");
 
 	private static final int MAX_POOL_SIZE = Integer.parseInt(ConfigManager.getProperty("MAX_POOL_SIZE"));
 	private static final int MINIMUM_IDLE_TIME_IN_SECS = Integer
