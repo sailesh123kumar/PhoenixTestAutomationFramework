@@ -1,0 +1,45 @@
+package com.database.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.database.DatabaseManager;
+import com.database.model.MapJobProblemDBModel;
+
+public class MapJobProblemDao {
+
+	private static final String MAP_JOB_PROBLEM_QUERY = """
+			select * from map_job_problem  where tr_job_head_id  = ?
+			""";
+
+	private MapJobProblemDao() {
+
+	}
+
+	public static MapJobProblemDBModel getProblemDataFromDB(int tr_job_head_id) {
+
+		Connection connection = DatabaseManager.getConnection();
+		PreparedStatement statement;
+		ResultSet resultSet;
+		MapJobProblemDBModel mapJobProblemDBModel = null;
+		try {
+			statement = connection.prepareStatement(MAP_JOB_PROBLEM_QUERY);
+			statement.setInt(1, tr_job_head_id);
+			resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+
+				mapJobProblemDBModel = new MapJobProblemDBModel(resultSet.getInt("id"), 
+						resultSet.getInt("tr_job_head_id"), resultSet.getInt("mst_problem_id"), resultSet.getString("remark"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return mapJobProblemDBModel;
+	}
+
+}
