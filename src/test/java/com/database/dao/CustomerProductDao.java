@@ -15,6 +15,11 @@ public class CustomerProductDao {
 			SELECT * from tr_customer_product where id = ?;
 
 			""";
+	
+	
+	private  CustomerProductDao() {
+		
+	}
 
 	public static CustomerProductDBModel getCustomerProductFromDB(int tr_customer_product_id) {
 

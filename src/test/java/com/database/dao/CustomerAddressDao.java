@@ -10,9 +10,6 @@ import com.database.model.CustomerAddressDBModel;
 
 public class CustomerAddressDao {
 
-	private CustomerAddressDao() {
-
-	}
 
 	private static final String CUSTOMER_ADDRESS_DETAIL_QUERY = """
 
@@ -31,6 +28,11 @@ public class CustomerAddressDao {
 			where id=?
 
 			""";
+	
+	
+	private CustomerAddressDao() {
+
+	}
 
 	public static CustomerAddressDBModel getCustomerAddress(int customerAddressId) {
 		Connection connection = DatabaseManager.getConnection();

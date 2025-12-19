@@ -21,12 +21,15 @@ import com.api.utils.FakerDataGenerator;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
 import com.database.dao.CustomerProductDao;
+import com.database.dao.JobHeadDao;
+import com.database.dao.MapJobProblemDao;
 import com.database.model.CustomerAddressDBModel;
 import com.database.model.CustomerDBModel;
 import com.database.model.CustomerProductDBModel;
+import com.database.model.JobHeadDBModel;
+import com.database.model.MapJobProblemDBModel;
 
 import io.restassured.http.ContentType;
-import io.restassured.response.Response;
 
 public class CreateJobAPIWithDBValidationOnAPIResponseFakeDataTest {
 	private CreateJobPayload createJobPayload;
@@ -53,9 +56,6 @@ public class CreateJobAPIWithDBValidationOnAPIResponseFakeDataTest {
 				.body("data.mst_service_location_id", equalTo(1))
 				.body("data.job_number", startsWith("JOB_"))
 				.extract().as(CreateJobResponseModel.class);
-		 
-		 System.out.println(createJobResponseModel);
-		 
 		 
 		 		int customerId = createJobResponseModel.getData().getTr_customer_id();;
 		 		System.out.println("=============================================");
@@ -97,6 +97,21 @@ public class CreateJobAPIWithDBValidationOnAPIResponseFakeDataTest {
 				Assert.assertEquals(customerProductFromDB.getSerial_number(), customer_product.serial_number());
 				Assert.assertEquals(customerProductFromDB.getPopurl(), customer_product.popurl());
 				Assert.assertEquals(customerProductFromDB.getMst_model_id(), customer_product.mst_model_id());
+				
+				JobHeadDBModel jobHeadinfoFromDB = JobHeadDao.getJobHeadinfoFromDB(tr_customer_product_id);
+			//	Assert.assertEquals(jobHeadinfoFromDB.getMst_service_location_id(), createJobPayload.mst_service_location_id(), "===LOCATION ID MISMATCH===");
+				Assert.assertEquals(jobHeadinfoFromDB.getMst_platform_id(), createJobPayload.mst_platform_id(), "===PLATFORM ID MISMATCH===");
+				Assert.assertEquals(jobHeadinfoFromDB.getMst_warrenty_status_id(), createJobPayload.mst_warrenty_status_id(), "===WARRENTY STATUS ID MISMATCH===");
+				Assert.assertEquals(jobHeadinfoFromDB.getMst_oem_id(), createJobPayload.mst_oem_id(), "===OEM ID MISMATCH===");
+				
+				
+				int tr_jobhead_id = createJobResponseModel.getData().getId();  
+				System.out.println("JOBHEAD ID : "+tr_jobhead_id);
+				
+				MapJobProblemDBModel problemDataFromDB = MapJobProblemDao.getProblemDataFromDB(tr_jobhead_id);
+				
+				Assert.assertEquals(problemDataFromDB.getMst_problem_id(), createJobPayload.problems().get(0).id() , "===MST_PROBLEM_ID_MISMATCH===");
+				Assert.assertEquals(problemDataFromDB.getRemark(), createJobPayload.problems().get(0).remark());
 	}
 
 	@Test(description = "Verify Create job Api is able to create Inwarranty job", groups = { "api", "smoke",
