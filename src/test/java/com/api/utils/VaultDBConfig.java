@@ -39,6 +39,7 @@ public class VaultDBConfig {
 			logicalResponse = vault.logical().read("secret/phoenix/qa/database");
 		} catch (VaultException e) {
 			e.printStackTrace();
+			return null;
 		}
 
 		Map<String, String> dataMap = logicalResponse.getData();
