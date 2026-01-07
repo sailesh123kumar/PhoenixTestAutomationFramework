@@ -1,17 +1,15 @@
 package com.api.utils;
 
-import static io.restassured.RestAssured.*;
-import static org.hamcrest.Matchers.*;
-
-import java.util.HashMap;
+import static com.api.constants.Role.ENG;
+import static com.api.constants.Role.FD;
+import static com.api.constants.Role.QC;
+import static com.api.constants.Role.SUP;
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static com.api.constants.Role.*;
-
 import com.api.constants.Role;
 import com.api.request.model.UserCredentials;
-
 import io.restassured.http.ContentType;
 
 public class AuthTokenProvider {
