@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import com.api.request.model.CreateJobPayload;
 import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
+import com.api.services.JobService;
 import com.api.utils.FakerDataGenerator;
 import com.database.dao.CustomerAddressDao;
 import com.database.dao.CustomerDao;
@@ -26,8 +27,11 @@ import io.restassured.http.ContentType;
 public class CreateJobAPIWithDBValidationTest {
 	private CreateJobPayload createJobPayload;
 
-	@BeforeMethod
+private JobService jobService;
+	
+	@BeforeMethod(description = "Instantiating the Jobservice object reference and setting up the fakeData")
 	public void setup() {
+		jobService = new JobService();
 		createJobPayload = FakerDataGenerator.generateFakeCreateJobPayload();
 	}
 
@@ -35,12 +39,8 @@ public class CreateJobAPIWithDBValidationTest {
 			"regression" })
 	public void createJobAPITest() {
 
-		int customerId = given().baseUri(getProperty("BASE_URI"))
-				.header("Authorization", getToken(FD))
-				.contentType(ContentType.JSON)
-				.body(createJobPayload).log().all()
-				.when()
-				.post("job/create")
+		int customerId = jobService
+				.create(FD, createJobPayload)
 				.then().log().all()
 				.statusCode(200)
 				.body(matchesJsonSchemaInClasspath("response-schema/CreateJobAPIResponseSchema.json"))

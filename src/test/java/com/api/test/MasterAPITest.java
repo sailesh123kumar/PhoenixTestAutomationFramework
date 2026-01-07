@@ -13,19 +13,29 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.notNullValue;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.api.services.DashboardService;
+import com.api.services.MasterService;
+
 public class MasterAPITest {
+	
+	
+private MasterService masterService;
+	
+	@BeforeMethod(description = "Instantiating the Dashboard Service object reference")
+	public void setup() {
+		masterService = new MasterService();
+	}
 	
 	@Test(description = "Verify Master Api is giving correct response", groups = {"smoke" , "regression"})
 	public void verifyMasterAPITest() {
 		
 		//API Developed Incorrectly hen we are not passing any body , It supposed to be get request
 		
-		given()
-			.spec(request_SpecWithAuth(FD))
-		.when()
-			.post("master")
+		masterService
+			.master(FD)
 		.then()
 			.spec(response_Spec_OK())
 			.body("$", hasKey("message"))
@@ -45,13 +55,10 @@ public class MasterAPITest {
 	
 	@Test(description = "Verify Master Api is giving correct status code for invalid token", groups = {"smoke" , "negative" , "regression"})
 	public void invalidTokenMasterAPITest() {
-		
-		given()
-		.spec(request_Spec())
-	.when()
-		.post("master")
-	.then()
-		.spec(response_Spec_With_Text_StatusCode(401));
+		masterService
+			.masterWithNoAuth()
+		.then()
+			.spec(response_Spec_With_Text_StatusCode(401));
 		
 		
 	}

@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.constants.Model;
@@ -19,6 +20,8 @@ import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
+import com.api.services.JobService;
+
 import static com.api.utils.AuthTokenProvider.*;
 import static com.api.utils.ConfigManager.*;
 import  static com.api.utils.DateTimeUtil.*;
@@ -32,15 +35,20 @@ import static io.restassured.RestAssured.*;
 
 public class CreateJobAPIDBDataDrivenTest {
 	
+	private JobService jobService;
+	
+	@BeforeMethod(description = "Instantiating the Jobservice object reference")
+	public void setUp() {
+		jobService = new JobService();
+	}
+	
 	@Test(description = "Verify Create job Api is able to create Inwarranty job", groups = {"datadriven" , "regression" ,"db"} ,
 			dataProviderClass = com.dataproviders.DataProvidersUtils.class ,dataProvider = "createJobAPIDBDataProvider")
 	public void createJobAPITest(CreateJobPayload payLoad) {
 		
 		
-		given()
-			.spec(request_SpecWithAuth(FD,payLoad))
-		.when()
-			.post("job/create")
+		jobService
+			.create(FD, payLoad)
 		.then()
 			.spec(response_Spec_OK())
 			.body(matchesJsonSchemaInClasspath("response-schema/CreateJobAPIResponseSchema.json"))
