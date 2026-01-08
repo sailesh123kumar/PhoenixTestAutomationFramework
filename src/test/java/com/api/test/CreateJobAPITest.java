@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.api.constants.Model;
@@ -19,6 +20,8 @@ import com.api.request.model.Customer;
 import com.api.request.model.CustomerAddress;
 import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
+import com.api.services.JobService;
+
 import static com.api.utils.AuthTokenProvider.*;
 import static com.api.utils.ConfigManager.*;
 import  static com.api.utils.DateTimeUtil.*;
@@ -32,9 +35,15 @@ import static io.restassured.RestAssured.*;
 
 public class CreateJobAPITest {
 	
-	CreateJobPayload payLoad ;
+	private CreateJobPayload payLoad ;
+	private JobService jobService;
 	
+	
+	@BeforeMethod(description = "Instantiating the Jobservice object reference and setting up the Createjob payload")
 	public void setUp() {
+		
+		jobService = new JobService();
+		
 		Customer customer = new Customer("Sailesh", "Kumar", "7823967575", "", "saileshkumar1793@gmail.com", "");
 		CustomerAddress customerAddress = new CustomerAddress("D 404", "Rajiv Nagar", "Vignesh Salai", "Velachery", "Chennai", "600042", "India", "Tamil Nadu");
 		CustomerProduct customerProduct = new CustomerProduct(getTimeWithDaysAgo(10), "81256049233069", "81256049233069", "81256049233069", getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
@@ -50,14 +59,8 @@ public class CreateJobAPITest {
 	public void createJobAPITest() {
 		
 		
-		given()
-			.baseUri(getProperty("BASE_URI"))
-			.header("Authorization",getToken(FD))
-			.contentType(ContentType.JSON)
-			.body(payLoad)
-			.log().all()
-		.when()
-			.post("job/create")
+		jobService
+			.create(FD, payLoad)
 		.then()
 			.log().all()
 			.statusCode(200)
@@ -79,10 +82,8 @@ public class CreateJobAPITest {
 		
 		CreateJobPayload payLoad = new CreateJobPayload(0, 2, 1, 1, customer, customerAddress, customerProduct, problemsList);
 
-		given()
-			.spec(request_SpecWithAuth(FD,payLoad))
-		.when()
-			.post("job/create")
+		jobService
+		.create(FD, payLoad)
 		.then()
 			.spec(response_Spec_OK());
 	}

@@ -1,33 +1,28 @@
 package com.api.test;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
-
+import static com.api.utils.SpecUtil.response_Spec_OK;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.equalTo;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import com.api.request.model.UserCredentials;
-
-import static com.api.utils.SpecUtil.*;
-
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
+import com.api.services.AuthService;
 
 public class LogInAPITest {
 	
 	private UserCredentials userCredentials;
+	private AuthService authService;
 	
-	@BeforeMethod(description = "create request payload for login api")
+	@BeforeMethod(description = "create request payload for login api and instanstiating the AuthService")
 	public void setUp() {
 		userCredentials = new UserCredentials("iamfd","password");
+		authService = new AuthService();
 	}
 	
 	@Test(description = "Verify user is able to login successfully with the valid credentials" , groups = {"smoke","reression","api"})
 	public void loginAPITest() {
-		
-		given()
-			.spec(request_Spec(userCredentials))
-		.when()
-			.post("login")
+		 authService
+		 	.login(userCredentials)
 		.then()
 			.spec(response_Spec_OK())
 			.body("message", equalTo("Success"))
