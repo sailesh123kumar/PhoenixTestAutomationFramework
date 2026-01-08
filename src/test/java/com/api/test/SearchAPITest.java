@@ -24,7 +24,7 @@ public class SearchAPITest {
 	}
 	
 	
-	@Test
+	@Test(description = "verify if the search api is working properly" , groups = {"api", "smoke"})
 	public void searchAPITest() {
 		jobService
 		.search(Role.FD, searchPayload)
