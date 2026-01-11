@@ -5,17 +5,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.database.DatabaseManager;
 import com.database.model.MapJobProblemDBModel;
 
 public class MapJobProblemDao {
+	
+	private static final Logger LOGGER = LogManager.getLogger(MapJobProblemDao.class);
 
 	private static final String MAP_JOB_PROBLEM_QUERY = """
 			select * from map_job_problem  where tr_job_head_id  = ?
 			""";
 
 	private MapJobProblemDao() {
-
 	}
 
 	public static MapJobProblemDBModel getProblemDataFromDB(int tr_job_head_id) {
@@ -25,8 +29,11 @@ public class MapJobProblemDao {
 		ResultSet resultSet;
 		MapJobProblemDBModel mapJobProblemDBModel = null;
 		try {
+			
+			LOGGER.info("Getting the connection from DBManager");
 			statement = connection.prepareStatement(MAP_JOB_PROBLEM_QUERY);
 			statement.setInt(1, tr_job_head_id);
+			LOGGER.info("Executing the SQL Query {} ", MAP_JOB_PROBLEM_QUERY);
 			resultSet = statement.executeQuery();
 
 			while (resultSet.next()) {
@@ -36,6 +43,7 @@ public class MapJobProblemDao {
 			}
 
 		} catch (SQLException e) {
+			LOGGER.error("Cannot convert the resultset to MapJobProblemDBModel bean", e);
 			e.printStackTrace();
 		}
 

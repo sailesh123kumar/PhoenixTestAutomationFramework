@@ -19,7 +19,7 @@ public class LogInAPIDataDrivenTest {
 	
 	
 	@Test(description = "Verify user is able to login successfully with the valid credentials" , groups = {"datadriven","reression","api"} , dataProviderClass = com.dataproviders.DataProvidersUtils.class , dataProvider = "LoginAPIDataProvider")
-	public void loginAPITest(UserBean  userBean) {
+	public void loginAPITest(UserBean userBean) {
 		
 		authService
 			.login(userBean)
