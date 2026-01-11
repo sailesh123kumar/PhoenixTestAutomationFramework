@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import com.api.request.model.UserCredentials;
 import com.api.services.AuthService;
+import com.dataproviders.api.bean.UserBean;
 
 public class LogInAPIJSONDataDrivenTest {
 	
@@ -20,10 +21,10 @@ private AuthService authService;
 	
 	
 	@Test(description = "Verify user is able to login successfully with the valid credentials" , groups = {"datadriven","reression","api"} , dataProviderClass = com.dataproviders.DataProvidersUtils.class , dataProvider = "LoginAPIJSONDataProvider")
-	public void loginAPITest(UserCredentials  userCreadential) {
+	public void loginAPITest(UserBean  userBean) {
 		
 		authService
-			.login(userCreadential)
+			.login(userBean)
 		.then()
 			.spec(response_Spec_OK())
 			.body("message", equalTo("Success"))

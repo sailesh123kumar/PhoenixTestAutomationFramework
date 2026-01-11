@@ -4,10 +4,13 @@ import static com.api.utils.SpecUtil.response_Spec_OK;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import com.api.services.AuthService;
 import com.dataproviders.api.bean.UserBean;
 
+
+@Listeners(com.listeners.APITestListener.class)
 public class LogInAPIDataDrivenTest {
 	
 	private AuthService authService;
@@ -19,7 +22,7 @@ public class LogInAPIDataDrivenTest {
 	
 	
 	@Test(description = "Verify user is able to login successfully with the valid credentials" , groups = {"datadriven","reression","api"} , dataProviderClass = com.dataproviders.DataProvidersUtils.class , dataProvider = "LoginAPIDataProvider")
-	public void loginAPITest(UserBean  userBean) {
+	public void loginAPITest(UserBean userBean) {
 		
 		authService
 			.login(userBean)

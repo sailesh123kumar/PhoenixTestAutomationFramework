@@ -8,7 +8,7 @@ import com.api.constants.Role;
 import com.api.request.model.Detail;
 import com.api.services.DashboardService;
 
-public class DetaiilsAPITest {
+public class DetailsAPITest {
 	
 	private DashboardService dashboardService;
 	private Detail detailPayload;
