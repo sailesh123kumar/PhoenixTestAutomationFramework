@@ -47,7 +47,6 @@ public class SpecUtil {
 		.log(LogDetail.URI)
 		.log(LogDetail.METHOD)
 		.log(LogDetail.HEADERS)
-		.log(LogDetail.BODY)
 		.build();
 		
 		return requestSpecification;
@@ -94,7 +93,6 @@ public static RequestSpecification request_SpecWithAuth(Role role , Object paylo
 		.expectContentType(ContentType.JSON)
 		.expectStatusCode(200)
 		.expectResponseTime(Matchers.lessThan(2500L))
-		.log(LogDetail.ALL)
 		.build();
 		
 		return responseSpecification;
@@ -106,7 +104,6 @@ public static RequestSpecification request_SpecWithAuth(Role role , Object paylo
 		.expectContentType(ContentType.JSON)
 		.expectStatusCode(statusCode)
 		.expectResponseTime(Matchers.lessThan(2500L))
-		.log(LogDetail.ALL)
 		.build();
 		
 		return responseSpecification;
@@ -117,7 +114,6 @@ public static ResponseSpecification response_Spec_With_Text_StatusCode(int statu
 		ResponseSpecification responseSpecification = new ResponseSpecBuilder()
 		.expectStatusCode(statusCode)
 		.expectResponseTime(Matchers.lessThan(2500L))
-		.log(LogDetail.ALL)
 		.build();
 		
 		return responseSpecification;
