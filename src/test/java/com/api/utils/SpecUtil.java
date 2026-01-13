@@ -26,10 +26,6 @@ public class SpecUtil {
 		.setContentType(ContentType.JSON)
 		.setAccept(ContentType.JSON)
 		.addFilter(new SensitiveDataFilter())
-		.log(LogDetail.URI)
-		.log(LogDetail.METHOD)
-		.log(LogDetail.HEADERS)
-		.log(LogDetail.BODY)
 		.build();
 		
 		return requestSpecification;
@@ -44,9 +40,6 @@ public class SpecUtil {
 		.setAccept(ContentType.JSON)
 		.setBody(requestPayload)
 		.addFilter(new SensitiveDataFilter())
-		.log(LogDetail.URI)
-		.log(LogDetail.METHOD)
-		.log(LogDetail.HEADERS)
 		.build();
 		
 		return requestSpecification;
@@ -59,10 +52,7 @@ public class SpecUtil {
 				.setContentType(ContentType.JSON)
 				.setAccept(ContentType.JSON)
 				.addHeader("Authorization", AuthTokenProvider.getToken(role))
-				.log(LogDetail.URI)
-				.log(LogDetail.METHOD)
-				.log(LogDetail.HEADERS)
-				.log(LogDetail.BODY)
+				.addFilter(new SensitiveDataFilter())
 				.build();
 				
 				return requestSpecification;
@@ -76,10 +66,7 @@ public static RequestSpecification request_SpecWithAuth(Role role , Object paylo
 				.setAccept(ContentType.JSON)
 				.addHeader("Authorization", AuthTokenProvider.getToken(role))
 				.setBody(payload)
-				.log(LogDetail.URI)
-				.log(LogDetail.METHOD)
-				.log(LogDetail.HEADERS)
-				.log(LogDetail.BODY)
+				.addFilter(new SensitiveDataFilter())
 				.build();
 				
 				return requestSpecification;
@@ -94,7 +81,6 @@ public static RequestSpecification request_SpecWithAuth(Role role , Object paylo
 		.expectStatusCode(200)
 		.expectResponseTime(Matchers.lessThan(2500L))
 		.build();
-		
 		return responseSpecification;
 	}
 	
