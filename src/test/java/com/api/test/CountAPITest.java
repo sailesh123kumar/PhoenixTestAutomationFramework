@@ -12,9 +12,10 @@ import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import com.api.services.DashboardService;
-
+@Listeners(com.listeners.APITestListener.class)
 public class CountAPITest {
 	
 	private DashboardService dashBoardService;
