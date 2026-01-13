@@ -3,12 +3,13 @@ package com.api.test;
 import static org.hamcrest.Matchers.*;
 import static com.api.utils.SpecUtil.*;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import com.api.constants.Role;
 import com.api.request.model.Search;
 import com.api.services.JobService;
 
-
+@Listeners(com.listeners.APITestListener.class)
 public class SearchAPITest {
 	
 	

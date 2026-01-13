@@ -10,6 +10,7 @@ import static org.hamcrest.Matchers.startsWith;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
 import com.api.request.model.CreateJobPayload;
@@ -27,7 +28,7 @@ import com.database.model.CustomerProductDBModel;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-
+@Listeners(com.listeners.APITestListener.class)
 public class CreateJobAPIWithDBValidation_ResponseMappingTest {
 	private CreateJobPayload createJobPayload;
 	private JobService jobService;
