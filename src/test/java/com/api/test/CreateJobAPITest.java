@@ -28,11 +28,20 @@ import static com.api.utils.ConfigManager.*;
 import  static com.api.utils.DateTimeUtil.*;
 import static com.api.utils.SpecUtil.*;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import io.restassured.http.ContentType;
 import static io.restassured.module.jsv.JsonSchemaValidator.*;
 
 import static io.restassured.RestAssured.*;
 
+
+@Epic("Job Management")
+@Feature("Job Creation")
 @Listeners(com.listeners.APITestListener.class)
 public class CreateJobAPITest {
 	
@@ -56,6 +65,10 @@ public class CreateJobAPITest {
 		payLoad = new CreateJobPayload(ServiceLocation.SERVICE_LOCATION_A.getCode(), Platform.FRONT_DESK.getCode(), Warranty_Status.IN_WARRANTY.getCode(), OEM.GOOGLE.getCode(), customer, customerAddress, customerProduct, problemsList);
 	}
 	
+	
+	@Story("FD should able to Create Job")
+	@Description("Verify Create job Api is able to create Inwarranty job")
+	@Severity(SeverityLevel.BLOCKER)
 	@Test(description = "Verify Create job Api is able to create Inwarranty job", groups = {"smoke" , "regression"})
 	public void createJobAPITest() {
 		
@@ -71,7 +84,11 @@ public class CreateJobAPITest {
 			.body("data.job_number", startsWith("JOB_"));
 	}
 	
-	@Test
+	
+	@Story("FD should able to Create Job")
+	@Description("Verify FD can Create job Api is able to create Inwarranty job")
+	@Severity(SeverityLevel.BLOCKER)
+	@Test(description = "Verify FD can Create job Api is able to create Inwarranty job", groups = {"smoke" , "regression"})
 	public void createJobAPIOneTest() {
 		
 		Customer customer = new Customer("Sailesh", "Kumar", "7823967575", "", "saileshkumar1793@gmail.com", "");
