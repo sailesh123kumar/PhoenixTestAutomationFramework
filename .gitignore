@@ -1,4 +1,6 @@
-/target/
+ /target/
 test-output/
 /.env
 /logs/
+.allure/
+/target/
