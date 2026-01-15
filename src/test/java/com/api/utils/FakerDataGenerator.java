@@ -16,6 +16,8 @@ import com.api.request.model.CustomerProduct;
 import com.api.request.model.Problems;
 import com.github.javafaker.Faker;
 
+import io.qameta.allure.Step;
+
 public class FakerDataGenerator {
 
 	
@@ -35,6 +37,7 @@ public class FakerDataGenerator {
 	private FakerDataGenerator() {
 	}
 
+	@Step("Generating the fake payload for Create Job")
 	public static CreateJobPayload generateFakeCreateJobPayload() {
 		LOGGER.info("Generating the fake payload for Create Job");
 		Customer customer = generateFakeCustomerData();
@@ -47,6 +50,7 @@ public class FakerDataGenerator {
 		return createJobPayload;
 	}
 
+	@Step("Generating the fake payload for Create Job for the given count")
 	public static Iterator<CreateJobPayload> generateFakeCreateJobPayload(int count) {
 		LOGGER.info("Generating the fake {} payload with count for CreateJob ", count);
 		List<CreateJobPayload> payloadList = new ArrayList<CreateJobPayload>();
@@ -66,6 +70,7 @@ public class FakerDataGenerator {
 		return payloadList.iterator();
 	}
 
+	@Step("Generating the fake payload for Customer")
 	private static Customer generateFakeCustomerData() {
 		String firstName = faker.name().firstName();
 		String lastName = faker.name().lastName();
@@ -77,6 +82,7 @@ public class FakerDataGenerator {
 		return customer;
 	}
 
+	@Step("Generating the fake payload for Customer Address")
 	private static CustomerAddress generateFakeCustomeraddressData() {
 		String flat_number = faker.address().buildingNumber();
 		String apartment_name = faker.address().firstName();
@@ -92,6 +98,7 @@ public class FakerDataGenerator {
 		return customerAddress;
 	}
 
+	@Step("Generating the fake payload for Customer Product")
 	private static CustomerProduct generateFakeCustomerProducData() {
 		String dop = DateTimeUtil.getTimeWithDaysAgo(10);
 		String serial_number = faker.numerify("###############");
@@ -102,6 +109,7 @@ public class FakerDataGenerator {
 		return customerProduct;
 	}
 
+	@Step("Generating the fake payload for ProblemsList")
 	private static List<Problems> generateFakeProblemsListData() {
 
 		int randomCount = RANDOM.nextInt(3) + 1;

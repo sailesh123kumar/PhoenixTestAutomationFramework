@@ -10,7 +10,15 @@ import com.api.request.model.UserCredentials;
 import com.api.services.AuthService;
 import com.dataproviders.api.bean.UserBean;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 
+@Epic("User Manaagement")
+@Feature("Authentication")
 @Listeners(com.listeners.APITestListener.class)
 public class LogInAPITest {
 	
@@ -23,6 +31,9 @@ public class LogInAPITest {
 		authService = new AuthService();
 	}
 	
+	@Story("Valid User able to login")
+	@Description("Verify user is able to login successfully with the valid credentials")
+	@Severity(SeverityLevel.BLOCKER)
 	@Test(description = "Verify user is able to login successfully with the valid credentials" , groups = {"smoke","reression","api"})
 	public void loginAPITest() {
 		 authService

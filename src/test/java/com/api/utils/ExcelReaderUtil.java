@@ -18,6 +18,8 @@ import com.api.request.model.UserCredentials;
 import com.dataproviders.api.bean.UserBean;
 import com.poiji.bind.Poiji;
 
+import io.qameta.allure.Step;
+
 public class ExcelReaderUtil {
 	
 	private static final Logger LOGGER = LogManager.getLogger(ExcelReaderUtil.class);
@@ -25,6 +27,7 @@ public class ExcelReaderUtil {
 	private ExcelReaderUtil() {
 	}
 
+	@Step("Loading test data from the excel file")
 	public static <T> Iterator<T> loadTestData(String fileName , String sheetName , Class<T> clazz) {
 		
 		LOGGER.info("Loading the Excel file from the path {} and the sheet name is {}",fileName ,sheetName);

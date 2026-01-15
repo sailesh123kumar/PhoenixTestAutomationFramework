@@ -7,6 +7,8 @@ import org.hamcrest.Matchers;
 import com.api.constants.Role;
 import com.api.filters.SensitiveDataFilter;
 
+import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -18,48 +20,49 @@ public class SpecUtil {
 	
 	
 	// GET - DELETE
-	
+	@Step("Setting up the BaseURI , Content Type as Application/JSON and attaching the SensitiveDataFilter")
 	public static RequestSpecification request_Spec() {
-		
 		RequestSpecification requestSpecification =  new RequestSpecBuilder()
 		.setBaseUri(getProperty("BASE_URI"))
 		.setContentType(ContentType.JSON)
 		.setAccept(ContentType.JSON)
 		.addFilter(new SensitiveDataFilter())
+		.addFilter(new AllureRestAssured())
 		.build();
-		
 		return requestSpecification;
 	}
 	
 	
+	//POST - PUT - PATCH {BODY}
+	@Step("Setting up the BaseURI , Content Type as Application/JSON and attaching the SensitiveDataFilter with payload")
 	public static RequestSpecification request_Spec(Object requestPayload) {
-		
 		RequestSpecification requestSpecification =  new RequestSpecBuilder()
 		.setBaseUri(getProperty("BASE_URI"))
 		.setContentType(ContentType.JSON)
 		.setAccept(ContentType.JSON)
 		.setBody(requestPayload)
 		.addFilter(new SensitiveDataFilter())
+		.addFilter(new AllureRestAssured())
 		.build();
-		
 		return requestSpecification;
 	}
 	
+	@Step("Setting up the BaseURI , Content Type as Application/JSON and attaching the SensitiveDataFilter for the role")
 	public static RequestSpecification request_SpecWithAuth(Role role) {
-		
 		RequestSpecification requestSpecification =  new RequestSpecBuilder()
 				.setBaseUri(getProperty("BASE_URI"))
 				.setContentType(ContentType.JSON)
 				.setAccept(ContentType.JSON)
 				.addHeader("Authorization", AuthTokenProvider.getToken(role))
 				.addFilter(new SensitiveDataFilter())
+				.addFilter(new AllureRestAssured())
 				.build();
 				
 				return requestSpecification;
 	}
 	
-public static RequestSpecification request_SpecWithAuth(Role role , Object payload) {
-		
+	@Step("Setting up the BaseURI , Content Type as Application/JSON and attaching the SensitiveDataFilter with payload for the role")
+	public static RequestSpecification request_SpecWithAuth(Role role , Object payload) {
 		RequestSpecification requestSpecification =  new RequestSpecBuilder()
 				.setBaseUri(getProperty("BASE_URI"))
 				.setContentType(ContentType.JSON)
@@ -68,12 +71,11 @@ public static RequestSpecification request_SpecWithAuth(Role role , Object paylo
 				.setBody(payload)
 				.addFilter(new SensitiveDataFilter())
 				.build();
-				
 				return requestSpecification;
 	}
 	
 	
-	
+	@Step("Expecting the response to have content Type as Application/Json , Status code 200 and Response Time is lessthan 1000 ms")
 	public static ResponseSpecification response_Spec_OK() {
 	
 		ResponseSpecification responseSpecification = new ResponseSpecBuilder()
@@ -84,24 +86,24 @@ public static RequestSpecification request_SpecWithAuth(Role role , Object paylo
 		return responseSpecification;
 	}
 	
+	
+	@Step("Expecting the response to have content Type as Application/Json ,  Response Time is lessthan 1000 ms and status code")
 	public static ResponseSpecification response_Spec_WithStatusCode(int statusCode) {
-		
 		ResponseSpecification responseSpecification = new ResponseSpecBuilder()
 		.expectContentType(ContentType.JSON)
 		.expectStatusCode(statusCode)
 		.expectResponseTime(Matchers.lessThan(2500L))
 		.build();
-		
 		return responseSpecification;
 	}
 	
-public static ResponseSpecification response_Spec_With_Text_StatusCode(int statusCode) {
-		
+	
+	@Step("Expecting the response to have content Type as text  ,  Response Time is lessthan 1000 ms and status code")
+	public static ResponseSpecification response_Spec_With_Text_StatusCode(int statusCode) {
 		ResponseSpecification responseSpecification = new ResponseSpecBuilder()
 		.expectStatusCode(statusCode)
 		.expectResponseTime(Matchers.lessThan(2500L))
 		.build();
-		
 		return responseSpecification;
 	}
 	

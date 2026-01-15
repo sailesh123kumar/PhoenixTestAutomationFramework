@@ -6,6 +6,8 @@ import static io.restassured.RestAssured.given;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.api.constants.Role;
+
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 public class DashboardService {
@@ -14,16 +16,19 @@ public class DashboardService {
 	private static final String COUNT_ENDPOINT = "/dashboard/count";
 	private static final String DETAIL_ENDPOINT = "/dashboard/details";
 
+	@Step("Making Count API request for the role")
 	public Response count(Role role) {
 		LOGGER.info("Making request to the {} for the role {}", COUNT_ENDPOINT, role);
 		return given().spec(request_SpecWithAuth(role)).when().get(COUNT_ENDPOINT);
 	}
 
+	@Step("Making Count API request without Auth token")
 	public Response countWithNoAuth() {
 		LOGGER.info("Making request to the {} with no auth", COUNT_ENDPOINT);
 		return given().spec(request_Spec()).when().get(COUNT_ENDPOINT);
 	}
 
+	@Step("Making Details API request with the role and payload")
 	public Response details(Role role, Object payload) {
 		LOGGER.info("Making request to the {} for the role {} and the payload {}", DETAIL_ENDPOINT, role, payload);
 		return given().spec(request_SpecWithAuth(role, payload)).when().post(DETAIL_ENDPOINT);

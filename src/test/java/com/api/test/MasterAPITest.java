@@ -20,7 +20,16 @@ import org.testng.annotations.Test;
 import com.api.services.DashboardService;
 import com.api.services.MasterService;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+
 @Listeners(com.listeners.APITestListener.class)
+@Epic("Job Management")
+@Feature("Master API")
 public class MasterAPITest {
 	
 	
@@ -31,6 +40,11 @@ private MasterService masterService;
 		masterService = new MasterService();
 	}
 	
+	
+	
+	@Story("Master API should")
+	@Description("Verify Master Api is giving correct response")
+	@Severity(SeverityLevel.BLOCKER)
 	@Test(description = "Verify Master Api is giving correct response", groups = {"smoke" , "regression"})
 	public void verifyMasterAPITest() {
 		
@@ -54,7 +68,9 @@ private MasterService masterService;
 			
 	}
 	
-	
+	@Story("Master API should not display")
+	@Description("Verify Master Api is giving correct status code for invalid token")
+	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "Verify Master Api is giving correct status code for invalid token", groups = {"smoke" , "negative" , "regression"})
 	public void invalidTokenMasterAPITest() {
 		masterService

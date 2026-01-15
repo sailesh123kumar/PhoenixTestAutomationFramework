@@ -13,6 +13,16 @@ import org.testng.annotations.Test;
 import com.api.services.AuthService;
 import com.api.services.UserService;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
+
+
+@Epic("User Manaagement")
+@Feature("User Details")
 @Listeners(com.listeners.APITestListener.class)
 public class UserDetailsAPITest {
 	
@@ -24,6 +34,9 @@ public class UserDetailsAPITest {
 		userService = new UserService();
 	}
 
+	@Story("User Details should be shown")
+	@Description("Verify if userdetails api response show correctly")
+	@Severity(SeverityLevel.CRITICAL)
 	@Test(description = "Verify if userdetails api response show correctly" , groups = {"smoke","reression","api"})
 	public void userDetailsAPITest() {
 		
