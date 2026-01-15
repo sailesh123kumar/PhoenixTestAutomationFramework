@@ -42,7 +42,7 @@ public class UserBean {
 
 	@Override
 	public String toString() {
-		return "UserPOJO [username=" + username + ", password=" + password + "]";
+		return "UserBean [username=" + username + ", password=************]";
 	}
 
 }

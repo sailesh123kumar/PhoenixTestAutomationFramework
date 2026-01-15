@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import com.api.constants.Role;
 import com.api.request.model.UserCredentials;
 
+import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 
 public class AuthTokenProvider {
@@ -26,7 +27,7 @@ public class AuthTokenProvider {
 	public AuthTokenProvider() {
 	}
 	
-	
+	@Step("Getting the Auth Token for the role")
 	public static String getToken(Role role) {
 		
 		UserCredentials userCredentials = null;
