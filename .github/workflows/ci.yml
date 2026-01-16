@@ -52,7 +52,6 @@ jobs:
     - name: Execute Test Automation Framework
       run: mvn clean test -DsuiteXmlFile="${{ steps.default.outputs.suiteXmlFile }}" -Denv="${{ steps.default.outputs.env }}"
 
-
     - name: Generating Allure Report
       if: always()
       run: mvn allure:report
