@@ -52,7 +52,6 @@ public class DataProvidersUtils {
 			payloadList.add(tempPayload);
 		}
 
-		System.out.println(payloadList);
 		return payloadList.iterator();
 	}
 
@@ -99,14 +98,14 @@ public class DataProvidersUtils {
 		ArrayList<CreateJobPayload> payloadList = new ArrayList<CreateJobPayload>();
 		LOGGER.info("Loading the data from Excel file testData/PhoenixTestData.xlsx from the sheet CreatejobTestData");
 
-		Iterator<CreateJobBean> createJbBeanIterator = ExcelReaderUtil.loadTestData("testData/PhoenixTestData.xlsx",
+		Iterator<CreateJobBean> createjobBeanIterator = ExcelReaderUtil.loadTestData("testData/PhoenixTestData.xlsx",
 				"CreatejobTestData", CreateJobBean.class);
 		;
 		CreateJobBean tempBean;
 		CreateJobPayload tempPayload;
 
-		while (createJbBeanIterator.hasNext()) {
-			tempBean = createJbBeanIterator.next();
+		while (createjobBeanIterator.hasNext()) {
+			tempBean = createjobBeanIterator.next();
 			tempPayload = CreateJobBeanMapper.mapper(tempBean);
 			payloadList.add(tempPayload);
 		}
