@@ -36,8 +36,8 @@ public class CSVReaderUtil {
 												.withIgnoreEmptyLine(true)
 												.build();
 		
-		List<T> userList = csvToBean.parse();
-		return userList.iterator();
+		List<T> beanList = csvToBean.parse();
+		return beanList.iterator();
 		
 	}
 
